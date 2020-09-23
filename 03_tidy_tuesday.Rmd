@@ -1,0 +1,42 @@
+---
+title: 'Tidy Tuesday #3'
+author: "Nicole Higgins"
+output: 
+  html_document:
+    df_print: paged
+    code_download: true
+    theme: cerulean
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, error=TRUE, message=FALSE, warning=FALSE)
+```
+
+```{r libraries}
+library(tidyverse)     # for graphing and data cleaning
+library(lubridate)     # for date manipulation
+library(ggthemes)      # for even more plotting themes
+theme_set(theme_minimal())       # My favorite ggplot() theme :)
+```
+
+```{r}
+# Read in the data for the week
+members <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-09-22/members.csv')
+expeditions <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-09-22/expeditions.csv')
+peaks <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-09-22/peaks.csv')
+```
+
+
+```{r, warning = FALSE}
+members %>%
+  filter(peak_id == "EVER") %>%
+  group_by(year) %>%
+  #mutate(avg_age = mean(age, na.rm = TRUE)) %>%
+  #ggplot(aes(x = year, y = avg_age)) +
+  #geom_point()                                     this was too boring!
+  ggplot(aes(x = year, y = age, group = year)) +
+  geom_boxplot() +
+  labs(title = "Mount Everest Climbers' Age Span by Year", x = "Year", y = "Age")
+```
+
+
