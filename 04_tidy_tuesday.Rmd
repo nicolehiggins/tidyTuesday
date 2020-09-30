@@ -1,6 +1,6 @@
 ---
 title: 'Tidy Tuesday #3'
-author: "Put your name here"
+author: "Nicole Higgins"
 output: 
   html_document:
     df_print: paged
@@ -10,7 +10,7 @@ output:
 
 ```{r setup, include=FALSE}
 # You may want to comment this out at first so you see important messages and warnings
-knitr::opts_chunk$set(echo = TRUE, error=TRUE, message=FALSE, warning=FALSE)
+#knitr::opts_chunk$set(echo = TRUE, error=TRUE, message=FALSE, warning=FALSE)
 ```
 
 ```{r libraries}
@@ -29,7 +29,22 @@ charts <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tid
 ```
 
 
-This week's data is about the Beyoncé and Taylor Swift songs. Read more about it, including definitions of variables, [here](https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-09-29/readme.md). Enjoy!
+```{r, warning=FALSE}
+sales %>%
+  filter(country == "US") %>%
+  separate(released, into = c("released", "junk"), sep = "\\(") %>%
+  group_by(artist) %>%
+  mutate(released = mdy(released)) %>%
+  ggplot(aes(x = released, 
+             y = sales)) +
+  geom_line() +
+  geom_point(aes(color = label), size = 3) +
+  facet_wrap(vars(artist)) +
+  labs(title = "Bey and T Swift's US Sales by Record Label",
+       color = "Label") +
+  theme(plot.background = element_rect(fill = "#b6d4c8"),
+        axis.title = element_blank(),
+        plot.title = element_text(size = "15", face = "bold"))
+```
 
-Please delete all the unneeded code and instructions. Remember to tweet out your graph with `#TidyTuesday` and `#MacTidyTuesday` hashtags if you'd like. If you want me to tweet it out for you, please take a screenshot (command+shift+4 on a Mac ... Google how to do it on a Windows) and add it to this [Google doc](https://docs.google.com/document/d/1lTcvc59CwptUtqmVXSl47zRFOMZEFtLQDCa00zaV_90/edit?usp=sharing). Be sure to have your name either on the graph somewhere (I'd recommend adding a caption or tag label) or right above the graph in the Google Doc. Thanks!
 
