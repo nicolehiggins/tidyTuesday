@@ -1,0 +1,35 @@
+---
+title: 'Tidy Tuesday #3'
+author: "Put your name here"
+output: 
+  html_document:
+    df_print: paged
+    code_download: true
+    theme: cerulean
+---
+
+```{r setup, include=FALSE}
+# You may want to comment this out at first so you see important messages and warnings
+knitr::opts_chunk$set(echo = TRUE, error=TRUE, message=FALSE, warning=FALSE)
+```
+
+```{r libraries}
+library(tidyverse)     # for graphing and data cleaning
+library(lubridate)     # for date manipulation
+library(ggthemes)      # for even more plotting themes
+theme_set(theme_minimal())       # My favorite ggplot() theme :)
+```
+
+```{r}
+# Read in the data for the week
+beyonce_lyrics <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-09-29/beyonce_lyrics.csv')
+taylor_swift_lyrics <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-09-29/taylor_swift_lyrics.csv')
+sales <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-09-29/sales.csv')
+charts <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-09-29/charts.csv')
+```
+
+
+This week's data is about the Beyoncé and Taylor Swift songs. Read more about it, including definitions of variables, [here](https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-09-29/readme.md). Enjoy!
+
+Please delete all the unneeded code and instructions. Remember to tweet out your graph with `#TidyTuesday` and `#MacTidyTuesday` hashtags if you'd like. If you want me to tweet it out for you, please take a screenshot (command+shift+4 on a Mac ... Google how to do it on a Windows) and add it to this [Google doc](https://docs.google.com/document/d/1lTcvc59CwptUtqmVXSl47zRFOMZEFtLQDCa00zaV_90/edit?usp=sharing). Be sure to have your name either on the graph somewhere (I'd recommend adding a caption or tag label) or right above the graph in the Google Doc. Thanks!
+
