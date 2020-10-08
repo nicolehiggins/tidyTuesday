@@ -1,0 +1,45 @@
+---
+title: 'Tidy Tuesday #5'
+author: "Nicole Higgins"
+output: 
+  html_document:
+    df_print: paged
+    code_download: true
+    theme: cerulean
+---
+
+```{r setup, include=FALSE}
+# You may want to comment this out at first so you see important messages and warnings
+knitr::opts_chunk$set(echo = TRUE, error=TRUE, message=FALSE, warning=FALSE)
+```
+
+```{r libraries}
+library(tidyverse)     # for graphing and data cleaning
+library(lubridate)     # for date manipulation
+library(ggthemes)      # for even more plotting themes
+theme_set(theme_minimal())       # My favorite ggplot() theme :)
+```
+
+```{r}
+# Read in the data for the week
+tournament <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-10-06/tournament.csv')
+
+```
+
+```{r}
+tournament %>%
+  filter(school %in% c("South Carolina", "Oregon", "Baylor")) %>%
+  group_by(conference, year) %>%
+  mutate(count = n()) %>%
+  ggplot(aes(x = year,
+             y = full_percent,
+             color = factor(school, levels = c("South Carolina", "Oregon",
+                            "Baylor")))) +
+  geom_point() +
+  geom_path(size = 1) +
+  labs(title = "Comparing the Top Three Women's Teams", 
+       x = "Year",
+       y = "Percent Wins",
+       color = "School [in order of rank]") +
+  theme(plot.background = element_rect(fill = "#b6d4c8"))
+```
